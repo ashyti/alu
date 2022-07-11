@@ -22,12 +22,15 @@ architecture hybrid of boothmul is
 		);
 	end component;
 
-	component shifter_left
-		generic (NBIT: integer:= 64);
+	component shifter
+		generic (N: integer);
 
-		port (a: in  std_logic_vector(NBIT-1 downto 0);
-		      b: in  std_logic_vector(4 downto 0);
-		      y: out std_logic_vector(NBIT-1 downto 0)
+		port (a:            in std_logic_vector(N-1 downto 0);
+		      b:            in std_logic_vector(4 downto 0);
+		      logic_arith:  in std_logic; -- 0 arithmetic, 1 logic
+		      left_right:   in std_logic; -- 0 right, 1 left
+		      shift_rotate: in std_logic; -- 0 rotate, 1 shift
+		      output:       out std_logic_vector(N-1 downto 0)
 		);
 	end component;
 
@@ -75,10 +78,11 @@ begin
 	end process;
 
 	cycle_shifter: for i in 0 to NBIT / 2 - 1 generate
-		shifter_i: shifter_left
-			generic map (2 * NBIT)
+		shifter_i: shifter
+			generic map (NBIT)
 			port map (a_s(i),
 				  std_logic_vector(to_unsigned(2 * i, 5)),
+				  '1', '1', '0', -- shift, left, arithmetic
 				  a_x(i));
 	end generate cycle_shifter;
 
