@@ -45,9 +45,8 @@ SRC += $(SRCDIR)/tb_alu.vhdl
 
 all: compile
 
-#@$(GHDL_CMD) -r $(ENTITY) --stop-time=$(TIME) --wave=$(WAVE)
 compile:
-	@mkdir $(WORKDIR)
+	@mkdir -p $(WORKDIR)
 	@$(GHDL_CMD) -a $(GHDL_FLAGS) --workdir=$(WORKDIR) $(SRC)
 	@$(GHDL_CMD) -e $(GHDL_FLAGS) --workdir=$(WORKDIR) $(ENTITY)
 
