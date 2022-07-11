@@ -30,16 +30,16 @@ architecture behavioral of booth_encoder is
 begin 
 	encoding: process(a, sel)
 	begin 
-	    case sel is 
-	        when "000" => vp <= (others => '0');                      -- 0
-	        when "001" => vp <= a;                                    -- A
-	        when "010" => vp <= a;                                    -- A
-	        when "011" => vp <= a(2 * NBIT - 2 downto 0) & '0';       -- 2A
-	        when "100" => vp <= 0 - (A(2 * NBIT - 2 downto 0) & '0'); -- -2A
-	        when "101" => vp <= 0 - A;                                -- -A
-	        when "110" => vp <= 0 - A;                                -- -A
-	        when "111" => vp <= (others => '0');                      -- 0
-	        when others => vp <= (others => '0');                     -- 0
-	    end case;
+		case sel is
+		when "000" => vp <= (others => '0');                      -- 0
+		when "001" => vp <= a;                                    -- A
+		when "010" => vp <= a;                                    -- A
+		when "011" => vp <= a(2 * NBIT - 2 downto 0) & '0';       -- 2A
+		when "100" => vp <= 0 - (A(2 * NBIT - 2 downto 0) & '0'); -- -2A
+		when "101" => vp <= 0 - A;                                -- -A
+		when "110" => vp <= 0 - A;                                -- -A
+		when "111" => vp <= (others => '0');                      -- 0
+		when others => vp <= (others => '0');                     -- 0
+		end case;
 	end process;
 end behavioral;
